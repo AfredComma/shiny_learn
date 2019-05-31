@@ -59,7 +59,11 @@ shinyUI(pageWithSidebar(
     h4("Summary"),
     verbatimTextOutput("summary_simple"),
     h4("Observations"),
-    tableOutput("view")
+    tableOutput("view"),
+    h3("URL components"),
+    verbatimTextOutput("urlText"),
+    h3("Parsed query string"),
+    verbatimTextOutput("queryText")
     
   )
 ))

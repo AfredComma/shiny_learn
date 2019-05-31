@@ -8,7 +8,7 @@ mpgData <- mtcars
 mpgData$am <- factor(mpgData$am, labels = c("Automatic", "Manual"))
 
 # Define server logic required to plot various variables against mpg
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   
   # Compute the forumla text in a reactive expression since it is 
   # shared by the output$caption and output$mpgPlot expressions
@@ -88,5 +88,18 @@ shinyServer(function(input, output) {
     head(datasetInput(),n=input$obs)
   })
   
+  output$urlText<- renderText({
+    paste(sep = "",
+          "protocol: ",session$clientData$url_protocol,"\n",
+          "hostname: ",session$clientData$url_hostname,"\n",
+          "pathname: ",session$clientData$url_pathname,"\n",
+          "port: ",session$clientData$url_port,"\n",
+          "search: ",session$clientData$url_search,"\n")
+    
+  })
+  output$queryText<-renderText({
+    query<-parseQueryString(session$clientData$url_search)
+    paste(names(query),query,sep = '=',collapse = ",")
+  })
   
 })
