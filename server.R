@@ -45,6 +45,14 @@ shinyServer(function(input, output) {
     dist(input$n)
   })
   
+  
+  datasetInput<- reactive({
+    switch (input$dataset,
+      "rock" = rock,
+      "pressure" = pressure,
+      "cars" = cars
+    )
+  })
   # Return the formula text for printing as a caption
   output$caption <- renderText({
     formulaText()
@@ -71,6 +79,13 @@ shinyServer(function(input, output) {
   })
   output$table <- renderTable({
     data.frame(x=data())
+  })
+  output$summary_simple<-renderPrint({
+    dataset<-datasetInput()
+    summary(dataset)
+  })
+  output$view<-renderTable({
+    head(datasetInput(),n=input$obs)
   })
   
   

@@ -13,7 +13,12 @@ shinyUI(pageWithSidebar(
                 list("Cylinders" = "cyl", 
                      "Transmission" = "am", 
                      "Gears" = "gear")),
-    
+    selectInput("dataset", "Choose a dataset:",
+                choices = c("rock","pressure","cars")),
+    numericInput("obs","Number of observations to view:",
+                 10),
+    helpText("hahahahahha","xixixixixixi"),
+    submitButton("Update View"),
     checkboxInput("outliers", "Show outliers", FALSE),
     sliderInput("integer", "Comma:",
                 min = 0, max = 1000, value = 500),
@@ -50,7 +55,11 @@ shinyUI(pageWithSidebar(
       tabPanel("plot",plotOutput("plot")),
       tabPanel("Summary", verbatimTextOutput("summary")),
       tabPanel("Table",tableOutput("table"))
-    )
+    ),
+    h4("Summary"),
+    verbatimTextOutput("summary_simple"),
+    h4("Observations"),
+    tableOutput("view")
     
   )
 ))
